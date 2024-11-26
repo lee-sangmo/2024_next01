@@ -1,4 +1,5 @@
 import Link from "next/link";
+import './globals.css';
 
 // layout.js는 선택이다 (RootLayout 제외)
 // layout이 필요없는 간단한 페이지에서는 생략 가능
@@ -21,7 +22,7 @@ export default function RootLayout({ children }) {
           <li><Link href="/read/2">CSS</Link></li>
           <li><Link href="/read/3">JSV</Link></li>
           <li><Link href="/gallery">image</Link></li>
-          <li>ItemList(외부서버)</li>
+          <li><Link href="/itemList">ItemList(외부서버)</Link></li>
           <li>GuestBook(Spring서버)</li>
         </ol>
         <hr />
