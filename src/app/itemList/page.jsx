@@ -12,10 +12,13 @@ export default function Page(props) {
     axios
       .get(API_URL)
       .then((res) => {
-        setList(res.data); // 데이터를 상태에 저장
-      })
-      .catch((error) => {
-        console.error("에러 발생:", error); // 에러 처리
+            // console.log(res.data)
+            // setList(res.data);
+
+            // 상위 12개 데이터만 추출
+            setList(res.data.slice(0, 12));
+      }).catch((error) => {
+        console.error("에러 발생:");
       });
   };
 
@@ -26,13 +29,14 @@ export default function Page(props) {
 
   return (
     <div style={{ width: "80%", margin: "auto", padding: "20px" }}>
-      <h2>BEST PRODUCTS</h2>
+      <h2><b>BEST PRODUCTS</b></h2>
       <Divider />
       <Grid2 container spacing={2}>
         {list.map((k) => {
+          // size={{ xs: 3 }}=>  전체 화면범위 12 에서 3개를 차지하자 (즉 한줄에 4개)
           return (
-            <Grid2 item size={{xs : 3}}>
-              <img src={k.image_link} alt="" className="img_item" />
+            <Grid2 key={k.id} size={{ xs: 3 }}>
+              <img src={k.image_link} alt="product" className="img_item" />
               <strong>{k.name}</strong>
               <span className="text_info">
                 {k.category} &nbsp; &nbsp; {k.product_type}

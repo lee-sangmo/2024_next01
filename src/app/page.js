@@ -12,7 +12,7 @@ export default function Home() {
     <h1>WelCome Home</h1>
     {/* 이미지 자체를 import 하지 않으면 너비,높이를 넣어줘야 한다 */}
     {/* <p><Image src="/images/coffee-blue.jpg" alt="커피이미지" width={100} height={100} /></p> */}
-   {/* 너비 높이는 선택 사항 */}
+    {/* 너비 높이는 선택 사항 */}
     {/* <p><Image src={img01} /></p> */}
     {/* <p><Image src={img01} width={50} height={50}/></p> */}
     </>

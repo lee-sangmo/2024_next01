@@ -4,7 +4,7 @@ import ReadTwo from '@/app/page/ReadTwo';
 import React from 'react';
 
 async function Page({ params }) {
-  const param = await params;
+  const param = await params;       // async/await - JSON 데이터를 자동으로 변환
   const msg = param.id;
   console.log("msg : ", msg);
   let str = "";
