@@ -1,7 +1,6 @@
 import ReadOne from '@/app/page/ReadOne';
 import ReadThree from '@/app/page/ReadThree';
 import ReadTwo from '@/app/page/ReadTwo';
-import React from 'react';
 
 async function Page({ params }) {
   const param = await params;       // async/await - JSON 데이터를 자동으로 변환

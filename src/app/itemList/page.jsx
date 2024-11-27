@@ -3,22 +3,24 @@ import { useEffect, useState } from "react";
 import "./itemList.css";
 import axios from "axios";
 import { Divider, Grid2 } from "@mui/material";
+import Link from "next/link";
 
 export default function Page(props) {
-  const [list, setList] = useState([]);
-  const API_URL = "https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline";
+  const [list, setList] = useState([]);   // 배열을 받기 때문에 []
+  // const API_URL = "https://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline";
+  const API_URL = `/makeup/v1/products.json?brand=maybelline`;
 
   const getData = () => {
     axios
       .get(API_URL)
       .then((res) => {
-            // console.log(res.data)
-            // setList(res.data);
+        // console.log(res.data)
+        // setList(res.data);
 
-            // 상위 12개 데이터만 추출
-            setList(res.data.slice(0, 12));
+        // 상위 12개 데이터만 추출
+        setList(res.data.slice(0, 12));
       }).catch((error) => {
-        console.error("에러 발생:");
+        console.error("에러 발생:")
       });
   };
 
@@ -36,12 +38,14 @@ export default function Page(props) {
           // size={{ xs: 3 }}=>  전체 화면범위 12 에서 3개를 차지하자 (즉 한줄에 4개)
           return (
             <Grid2 key={k.id} size={{ xs: 3 }}>
-              <img src={k.image_link} alt="product" className="img_item" />
-              <strong>{k.name}</strong>
-              <span className="text_info">
-                {k.category} &nbsp; &nbsp; {k.product_type}
-              </span>
-              <strong className="num_price">{k.price}</strong>
+              <Link href={'/view/'+k.id}>
+                <img src={k.image_link} alt="product" className="img_item" />
+                <strong>{k.name}</strong>
+                <span className="text_info">
+                  {k.category} &nbsp; &nbsp; {k.product_type}
+                </span>
+                <strong className="num_price">{k.price}</strong>
+              </Link>
             </Grid2>
           );
         })}

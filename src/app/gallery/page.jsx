@@ -4,7 +4,7 @@ import img02 from "/public/file.svg"
 import img03 from "/public/images/tree-3.jpg"
 import './gallery.css'
 
-function page(props) {
+function Page(props) {
   return (
     <div>
       <table>
@@ -23,4 +23,4 @@ function page(props) {
   );
 }
 
-export default page;
+export default Page;

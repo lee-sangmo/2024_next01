@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           <li><Link href="/read/3">JSV</Link></li>
           <li><Link href="/gallery">image</Link></li>
           <li><Link href="/itemList">ItemList(외부서버)</Link></li>
-          <li>GuestBook(Spring서버)</li>
+          <li><Link href="/guestBookList">GuestBook(Spring서버)</Link></li>
         </ol>
         <hr />
         {children}
