@@ -6,20 +6,20 @@ import './gallery.css'
 
 function Page(props) {
   return (
-    <div>
-      <table>
+    <>
+      <tbody>
         <tr>
-          <td><Image src={img01} width={100} height={100} /></td>
-          <td><Image src={img02} width={100} height={100} /></td>
-          <td><Image src={img03} width={100} height={100} /></td>
+          <td><Image src={img01} alt="1"  width={100} height={100} /></td>
+          <td><Image src={img02} alt="2"  width={100} height={100} /></td>
+          <td><Image src={img03} alt="3"  width={100} height={100} /></td>
         </tr>
         <tr>
-          <td><Image src="/images/tree-4.jpg" width={100} height={100} /></td>
-          <td><Image src="/images/tree-1.jpg" width={100} height={100} /></td>
-          <td><Image src="/images/tree-2.jpg" width={100} height={100} /></td>
+          <td><Image src="/images/tree-4.jpg" alt="4" width={100} height={100} /></td>
+          <td><Image src="/images/tree-1.jpg" alt="5" width={100} height={100} /></td>
+          <td><Image src="/images/tree-2.jpg" alt="6" width={100} height={100} /></td>
         </tr>
-      </table>
-    </div>
+      </tbody>
+    </>
   );
 }
 

@@ -6,20 +6,24 @@ import React, { useEffect, useState } from 'react';
 import './guestBookList.css';
 
 function Page(props) {
+  const LOCAL_API_BASE_URL = process.env.NEXT_PUBLIC_LOCAL_API_BASE_URL;
   const [list, setList] = useState([]);   // 배열을 받기 때문에 []
   // const API_URL = "http://localhost:8080/api/guestbook/list";
-  const API_URL = `/guestbook/list`;
+  const API_URL = `${LOCAL_API_BASE_URL}/guestbook/list`;
+  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [error, setError] = useState(null);     // 에러 상태
 
-  const getData = () => {
-    axios
-      .get(API_URL)
-      .then((res) => {
-        setList(res.data);
-        // console.log(res.data);
-      })
-      .catch((error) => {
-        console.log("에러 발생:", error);
-      });
+  const getData = async () => {
+    try {
+      setLoading(true)  // 로딩 시작
+      const response = await axios.get(API_URL);
+      setList(response.data.slice(0, 12));
+    } catch (error) {
+      console.error("Error fetching product data", error);
+      setError("Failed to fetch product data.");
+    } finally {
+      setLoading(false);    // 로딩 종료
+    }
   };
 
   // 처음 랜더링 끝난 후 최초 한번만 실행
@@ -27,6 +31,20 @@ function Page(props) {
     getData();
   }, []);
 
+  // 로딩 중
+  if (loading) {
+    return <div style={{ textAlign: "center", padding: "20px" }}><strong>Loading...</strong></div>;
+  }
+  // 에러 발생 시
+  if (error) {
+    return (
+      <div style={{ textAlign: "center", padding: "20px", color: "red" }}>
+        <h2>Error:</h2>
+        <p>{error}</p>
+      </div>
+    );
+  }
+  
   return (
     <>
       <h2 className="title">GuestBook List</h2>
