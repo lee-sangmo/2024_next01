@@ -19,7 +19,7 @@ function Page(props) {
       const response = await axios.get(API_URL);
       setList(response.data.slice(0, 12));
     } catch (error) {
-      console.error("Error fetching product data", error);
+      console.log("Error fetching product data", error);
       setError("Failed to fetch product data.");
     } finally {
       setLoading(false);    // 로딩 종료

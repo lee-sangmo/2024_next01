@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
     {/* 해당 내용은 부모 컴포넌트의 props = {children}에 삽입된다 */}
-    <h1>WelCome Home</h1>
+    <h1 style={{textAlign: "center"}}>WelCome Home</h1>
     {/* 이미지 자체를 import 하지 않으면 너비,높이를 넣어줘야 한다 */}
     {/* <p><Image src="/images/coffee-blue.jpg" alt="커피이미지" width={100} height={100} /></p> */}
     {/* 너비 높이는 선택 사항 */}
