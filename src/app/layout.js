@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
             <Link href="/read/3">JSV</Link>
             <Link href="/gallery">image</Link>
             <Link href="/itemList">ItemList(외부서버)</Link>
-            {/* <Link href="/guestBookList">GuestBook(Spring서버)</Link> */}
+            <Link href="/guestBookList">GuestBook(Spring서버)</Link>
             {isAuthenticated ? (
               <>
                 <span style={{fontSize:"16px"}}><b>{user.m_id}님 환영합니다</b></span>
