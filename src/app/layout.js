@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import './globals.css';
-import { Button, Stack } from '@mui/material';
+import { Avatar, Button, Stack } from '@mui/material';
 import { useEffect } from 'react';
 
 // layout.js는 선택이다 (RootLayout 제외)
@@ -43,6 +43,7 @@ export default function RootLayout({ children }) {
             <Link href="/guestBookList">GuestBook(Spring서버)</Link>
             {isAuthenticated ? (
               <>
+                <Avatar />
                 <span style={{fontSize:"16px"}}><b>{user.m_id}님 환영합니다</b></span>
                 <Button variant="contained" onClick={handleLogout}>logout</Button>
               </>
@@ -52,12 +53,11 @@ export default function RootLayout({ children }) {
                 <Link href="/join">join(Spring서버)</Link>
               </>
             )}
-            <Link href="/projectTest01">projectTest01</Link>
           </Stack>
         </nav>
-        <hr />
+        <p />
         {children}
-        <hr />
+        <p />
         <ul>
           {/* /create 이면 create 폴더를 찾는다!! 
           폴더 안에는 page.jsx(필수,자식), layout.jsx(선택,부모) 가 있다 */}
