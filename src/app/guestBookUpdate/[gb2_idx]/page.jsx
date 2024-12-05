@@ -107,7 +107,7 @@ function Page({ params }) {
     }
     return (
         <>
-            <h2 className="title">GuestBookList</h2>
+            <h2 className="title" style={{ textAlign:"center" }}>guestBookUpdate</h2>
             <TableContainer component={Paper} className="table-container">
                 <Table className="custom-table">
                     <TableBody>

@@ -49,8 +49,8 @@ export default function RootLayout({ children }) {
               </>
             ) : (
               <>
-                <Link href="/login">login(Spring서버)</Link>
-                <Link href="/join">join(Spring서버)</Link>
+                <Link href="/login">Sign In</Link>
+                <Link href="/join">Sign Up</Link>
               </>
             )}
           </Stack>

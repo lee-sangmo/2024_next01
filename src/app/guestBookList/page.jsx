@@ -51,7 +51,7 @@ function Page(props) {
     // 로딩 완료 후 화면
     return (
         <>
-            <h2 className="title">GuestBookList</h2>
+            <h2 className="title" style={{ textAlign:"center" }}>GuestBookList</h2>
             {/* 로그인 된 상태이면 쓰기 버튼 표시 */}
             {isAuthenticated && (
                 <div style={{ textAlign: "right", marginRight: "250px" }}>

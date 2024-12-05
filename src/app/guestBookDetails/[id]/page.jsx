@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 
 function Page({ params }) {
     const LOCAL_API_BASE_URL = process.env.NEXT_PUBLIC_LOCAL_API_BASE_URL;
+    const LOCAL_IMG_URL = process.env.NEXT_PUBLIC_LOCAL_IMG_URL;
     const [item, setItem] = useState(null);       // 데이터 상태
     const [loading, setLoading] = useState(true); // 로딩 상태
     const [error, setError] = useState(null);     // 에러 상태
@@ -45,8 +46,8 @@ function Page({ params }) {
 
     // delete
     const handleDelete = async () => {
-    // 상세보기 성공했을 때 데이터 item에 넣었다.
-    console.log("Deleting item with idx:", item.gb2_idx); // 확인용 로그
+        // 상세보기 성공했을 때 데이터 item에 넣었다.
+        console.log("Deleting item with idx:", item.gb2_idx); // 확인용 로그
         const API_URL = `${LOCAL_API_BASE_URL}/guestbook/delete/${item.gb2_idx}`;
         try {
             console.log("11")
@@ -90,7 +91,7 @@ function Page({ params }) {
     // 로딩 완료 후
     return (
         <>
-            <h2 className="title">GuestBookList</h2>
+            <h2 className="title" style={{ textAlign: "center" }}>GuestBookDetail</h2>
             <TableContainer component={Paper} className="table-container">
                 <Table className="custom-table">
                     <TableBody>
@@ -104,7 +105,7 @@ function Page({ params }) {
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">CONTENT</TableCell>
-                            <TableCell className="table-cell">{item.gb2_content}</TableCell>
+                            <TableCell className="table-cell"><pre>{item.gb2_content}</pre></TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">EMAIL</TableCell>
@@ -114,6 +115,32 @@ function Page({ params }) {
                             <TableCell className="table-cell">DATE</TableCell>
                             <TableCell className="table-cell">{item.gb2_regdate.substring(0, 10)}</TableCell>
                         </TableRow>
+                        {item.gb2_filename && (
+                            <TableRow>
+                                <TableCell className="table-cell">IMAGE</TableCell>
+                                <TableCell className="table-cell">
+                                    {isAuthenticated ? (
+                                        <a
+                                            href={`${LOCAL_API_BASE_URL}/guestbook/download/${item.gb2_filename}`} // Spring Boot 다운로드 URL
+                                            download={item.gb_filename} // 다운로드 파일 이름 지정
+                                            target="_blank" // 새 탭에서 열림
+                                            rel="noopener noreferrer" // 보안 향상을 위해 추가
+                                        >
+                                            <img
+                                                src={`${LOCAL_IMG_URL}/${item.gb2_filename}`}
+                                                alt="Uploaded Image"
+                                                style={{ width: "150px" }}
+                                            />
+                                        </a>) : (
+                                        <img
+                                            src={`${LOCAL_IMG_URL}/${item.gb2_filename}`}
+                                            alt="Uploaded Image"
+                                            style={{ width: "150px" }}
+                                        />
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
