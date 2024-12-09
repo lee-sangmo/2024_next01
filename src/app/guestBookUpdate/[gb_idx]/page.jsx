@@ -22,8 +22,8 @@ function Page({ params }) {
         const fetchData = async () => {
             try {
                 setLoading(true); // 로딩 시작
-                const { gb2_idx } = await Promise.resolve(params);
-                const API_URL = `${LOCAL_API_BASE_URL}/guestbook/detail/${gb2_idx}`;
+                const { gb_idx } = await Promise.resolve(params);
+                const API_URL = `${LOCAL_API_BASE_URL}/guestbook/detail/${gb_idx}`;
 
                 // 데이터 가져오기
                 const response = await axios.get(API_URL);
@@ -62,17 +62,17 @@ function Page({ params }) {
     const isChanged = () => {
         return (
             orginalData &&
-            (orginalData.gb2_name !== editData.gb2_name ||
-                orginalData.gb2_subject !== editData.gb2_subject ||
-                orginalData.gb2_content !== editData.gb2_content ||
-                orginalData.gb2_email !== editData.gb2_email
+            (orginalData.gb_name !== editData.gb_name ||
+                orginalData.gb_subject !== editData.gb_subject ||
+                orginalData.gb_content !== editData.gb_content ||
+                orginalData.gb_email !== editData.gb_email
             )
         );
     };
 
     const handleUpdate = async () => {
-        const { gb2_idx } = await Promise.resolve(params);
-        const API_URL = `${LOCAL_API_BASE_URL}/guestbook/update/${gb2_idx}`;
+        const { gb_idx } = await Promise.resolve(params);
+        const API_URL = `${LOCAL_API_BASE_URL}/guestbook/update/${gb_idx}`;
         try {
             const response = await axios.put(API_URL, editData, {
                 headers: {
@@ -81,7 +81,7 @@ function Page({ params }) {
             });
             if (response.data.success) {
                 alert(response.data.message)
-                router.push(`/guestBookDetails/${gb2_idx}`)
+                router.push(`/guestBookDetails/${gb_idx}`)
             } else {
                 alert(response.data.message)
             }
@@ -114,25 +114,25 @@ function Page({ params }) {
                         <TableRow>
                             <TableCell className="table-cell">NAME</TableCell>
                             <TableCell className="table-cell">
-                                <TextField type='text' name="gb2_name" value={editData.gb2_name} onChange={changItem} />
+                                <TextField type='text' name="gb_name" value={editData.gb_name} onChange={changItem} />
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">SUBJECT</TableCell>
                             <TableCell className="table-cell">
-                                <TextField type='text' name="gb2_subject" value={editData.gb2_subject} onChange={changItem} />
+                                <TextField type='text' name="gb_subject" value={editData.gb_subject} onChange={changItem} />
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">CONTENT</TableCell>
                             <TableCell className="table-cell">
-                                <TextField type='text' name="gb2_content" value={editData.gb2_content} onChange={changItem} />
+                                <TextField type='text' name="gb_content" value={editData.gb_content} onChange={changItem} />
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">EMAIL</TableCell>
                             <TableCell className="table-cell">
-                                <TextField type='text' name="gb2_email" value={editData.gb2_email} onChange={changItem} />
+                                <TextField type='text' name="gb_email" value={editData.gb_email} onChange={changItem} />
                             </TableCell>
                         </TableRow>
 

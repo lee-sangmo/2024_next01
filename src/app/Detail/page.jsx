@@ -20,12 +20,12 @@ function Page({ item }) {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell className="table-cell">{item.gb2_idx}</TableCell>
-              <TableCell className="table-cell">{item.gb2_name}</TableCell>
-              <TableCell className="table-cell">{item.gb2_subject}</TableCell>
-              <TableCell className="table-cell">{item.gb2_content}</TableCell>
-              <TableCell className="table-cell">{item.gb2_email}</TableCell>
-              <TableCell className="table-cell">{item.gb2_regdate.substring(0,10)}</TableCell>
+              <TableCell className="table-cell">{item.gb_idx}</TableCell>
+              <TableCell className="table-cell">{item.gb_name}</TableCell>
+              <TableCell className="table-cell">{item.gb_subject}</TableCell>
+              <TableCell className="table-cell">{item.gb_content}</TableCell>
+              <TableCell className="table-cell">{item.gb_email}</TableCell>
+              <TableCell className="table-cell">{item.gb_regdate.substring(0,10)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

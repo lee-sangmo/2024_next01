@@ -11,10 +11,10 @@ import { useRouter } from 'next/navigation';
 function Page({ params }) {
     const LOCAL_API_BASE_URL = process.env.NEXT_PUBLIC_LOCAL_API_BASE_URL;
     const LOCAL_IMG_URL = process.env.NEXT_PUBLIC_LOCAL_IMG_URL;
-    const [item, setItem] = useState(null);       // 데이터 상태
-    const [loading, setLoading] = useState(true); // 로딩 상태
-    const [error, setError] = useState(null);     // 에러 상태
-    const { isAuthenticated, token } = useAuthStore();       // 로그인 상태
+    const [item, setItem] = useState(null);                 // 데이터 상태
+    const [loading, setLoading] = useState(true);           // 로딩 상태
+    const [error, setError] = useState(null);               // 에러 상태
+    const { isAuthenticated, token, user } = useAuthStore();       // 로그인 상태
     const router = useRouter();
 
     useEffect(() => {
@@ -46,11 +46,15 @@ function Page({ params }) {
 
     // delete
     const handleDelete = async () => {
+        // 버트를 항상 활성화 하면 
+        // if (!isAuthenticated) {
+        //     alert("로그인이 필요합니다.")
+        //     router.push("/login");
+        // }
+
         // 상세보기 성공했을 때 데이터 item에 넣었다.
-        console.log("Deleting item with idx:", item.gb2_idx); // 확인용 로그
-        const API_URL = `${LOCAL_API_BASE_URL}/guestbook/delete/${item.gb2_idx}`;
+        const API_URL = `${LOCAL_API_BASE_URL}/guestbook/delete/${item.gb_idx}`;
         try {
-            console.log("11")
             const response = await axios.get(API_URL, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -70,7 +74,7 @@ function Page({ params }) {
     // update
     const handleUpdate = async () => {
         // 수정페이지로 이동
-        router.push(`/guestBookUpdate/${item.gb2_idx}`)
+        router.push(`/guestBookUpdate/${item.gb_idx}`)
     }
 
     // 로딩 중
@@ -87,57 +91,58 @@ function Page({ params }) {
             </div>
         );
     }
-
+    // 글 작성자와 현재 로그인한 사용자 비교 
+    const isOwner = isAuthenticated && String(user.m_id) === String(item.gb_id);
     // 로딩 완료 후
     return (
         <>
-            <h2 className="title" style={{ textAlign: "center" }}>GuestBookDetail</h2>
+            <h2 className="title">GuestBookList</h2>
             <TableContainer component={Paper} className="table-container">
                 <Table className="custom-table">
                     <TableBody>
                         <TableRow>
                             <TableCell className="table-cell">NAME</TableCell>
-                            <TableCell className="table-cell">{item.gb2_name}</TableCell>
+                            <TableCell className="table-cell">{item.gb_name}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">SUBJECT</TableCell>
-                            <TableCell className="table-cell">{item.gb2_subject}</TableCell>
+                            <TableCell className="table-cell">{item.gb_subject}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">CONTENT</TableCell>
-                            <TableCell className="table-cell"><pre>{item.gb2_content}</pre></TableCell>
+                            <TableCell className="table-cell"><pre>{item.gb_content}</pre></TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">EMAIL</TableCell>
-                            <TableCell className="table-cell">{item.gb2_email}</TableCell>
+                            <TableCell className="table-cell">{item.gb_email}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell className="table-cell">DATE</TableCell>
-                            <TableCell className="table-cell">{item.gb2_regdate.substring(0, 10)}</TableCell>
-                        </TableRow>
-                        {item.gb2_filename && (
+                            <TableCell className="table-cell">{item.gb_regdate.substring(0, 10)}</TableCell>
+                            </TableRow>
+                        {item.gb_filename && (
                             <TableRow>
-                                <TableCell className="table-cell">IMAGE</TableCell>
+                                <TableCell className="table-cell">Image</TableCell>
                                 <TableCell className="table-cell">
-                                    {isAuthenticated ? (
-                                        <a
-                                            href={`${LOCAL_API_BASE_URL}/guestbook/download/${item.gb2_filename}`} // Spring Boot 다운로드 URL
-                                            download={item.gb_filename} // 다운로드 파일 이름 지정
-                                            target="_blank" // 새 탭에서 열림
-                                            rel="noopener noreferrer" // 보안 향상을 위해 추가
-                                        >
+                                    {isOwner ? (
+                                        <>
                                             <img
-                                                src={`${LOCAL_IMG_URL}/${item.gb2_filename}`}
-                                                alt="Uploaded Image"
-                                                style={{ width: "150px" }}
-                                            />
-                                        </a>) : (
-                                        <img
-                                            src={`${LOCAL_IMG_URL}/${item.gb2_filename}`}
-                                            alt="Uploaded Image"
-                                            style={{ width: "150px" }}
-                                        />
-                                    )}
+                                                src={`${LOCAL_IMG_URL}/${item.gb_filename}`}
+                                                alt="image"
+                                                style={{ width: "150px", cursor: "pointer", marginRight: "10px" }} />
+                                            <a href={`${LOCAL_API_BASE_URL}/guestbook/download/${item.gb_filename}`}
+                                                target='_blank'
+                                                rel="noopener noreferrer"
+                                                style={{ textDecoration: "none", color: "#007bff" }}
+                                            > 다운로드 </a>
+                                        </>) : (
+                                        <>
+                                            <img
+                                                src={`${LOCAL_IMG_URL}/${item.gb_filename}`}
+                                                alt="image"
+                                                style={{ width: "150px", cursor: "pointer", marginRight: "10px" }} />
+                                            <span>다운로드 권한없음</span>
+                                        </>)}
                                 </TableCell>
                             </TableRow>
                         )}
@@ -148,14 +153,14 @@ function Page({ params }) {
                 <Button variant='contained'
                     color='primary'
                     onClick={handleUpdate}
-                    disabled={!isAuthenticated}
+                    disabled={!isOwner}
                 >수정</Button>
 
                 <Button variant='contained'
                     color='error'
                     onClick={handleDelete}
                     style={{ marginLeft: "10px" }}
-                    disabled={!isAuthenticated}
+                    disabled={!isOwner}
                 >삭제</Button>
             </div>
         </>

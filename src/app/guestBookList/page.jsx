@@ -76,10 +76,10 @@ function Page(props) {
                                 </TableCell>
                             </TableRow>
                             : list.map((item) => (
-                                <TableRow key={item.gb2_idx}>
-                                    <TableCell className="table-cell">{item.gb2_name}</TableCell>
+                                <TableRow key={item.gb_idx}>
+                                    <TableCell className="table-cell">{item.gb_name}</TableCell>
                                     <TableCell className="table-cell">
-                                        <Link href={`/guestBookDetails/${item.gb2_idx}`}>{item.gb2_subject}</Link>
+                                        <Link href={`/guestBookDetails/${item.gb_idx}`}>{item.gb_subject}</Link>
                                     </TableCell>
                                 </TableRow>
                             ))}
